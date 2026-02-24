@@ -242,8 +242,31 @@ Suppose:
 -> If it can only handle 20K messages/sec → system will lag or crash.
 
 
--> Resource usage
+-> Resource usage: Multiple users or services share the same system resources like:
+-> CPU
+-> Memory
+-> Database
+-> Network
+-> Storage
+Efficient sharing ensures system remains stable.
 
+Example: Database Shared by Multiple Services
+=> Imagine:
+-> User Service
+-> Order Service
+-> Payment Service
+All using the same database.
+
+=>Problem:
+-> If Order Service suddenly generates heavy traffic,
+-> Database CPU spikes → other services slow down.
+This is resource contention.
+
+=> Use:
+-> Separate DB instances
+-> Kubernetes resource limits
+-> Rate limiting
+-> Auto-scaling
 
 Example:
 -> If 1 million users send messages at the same time:
@@ -260,3 +283,77 @@ Improves performance.
 
 What scale are we targeting?
 -> That moves discussion from functional → non-functional.
+
+
+
+
+
+
+
+
+
+Monolith vs Microservices
+
+🔷 Monolith Architecture
+
+-> All components inside one application.
+
+Example:
+-> Single codebase
+-> Single deployment
+-> Single database
+
+Advantages:
+-> Simple
+-> Easy to develop initially
+-> Good for small teams
+
+==> Problems:
+-> Hard to scale parts independently
+-> Hard to deploy large apps
+-> One bug can crash entire system
+
+Example:
+Early stage startups.
+
+
+
+
+
+🔷 Microservices Architecture
+
+->Application split into small independent services.
+
+Example:
+-> Instagram:
+-> User Service
+-> Post Service
+-> Feed Service
+-> Notification Service
+==> Each service:
+-> Has own database
+-> Deployed independently
+-> Scales independently
+
+==> Advantages:
+-> Independent scaling
+-> Fault isolation
+-> Faster deployment
+
+Problems:
+-> Complex
+-> Network overhead
+-> Hard debugging
+-> Distributed failures
+
+
+
+
+Startups → Monolith
+Large scale companies → Microservices
+
+==>But:
+->Monolith is not bad.
+->Microservices is not always better.
+
+It depends on scale.
