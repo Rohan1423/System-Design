@@ -1,3 +1,45 @@
+==> What is System Design?
+
+-> System Design is the process of designing the architecture, components, data flow, and scalability of a large-scale software system.
+
+==> It answers:
+How will the system work?
+How will it handle millions of users?
+How will it scale?
+
+==> What happens if something fails?
+
+-> Real-World Meaning
+
+==> If someone asks:
+
+"Design Instagram"
+They are NOT asking you to code.
+They want you to explain:
+
+What components are needed?
+How they interact?
+How it scales?
+How it handles failures?
+How it stores data?
+
+==> What Does System Design Include?
+
+System Design focuses on:
+Architecture
+Databases
+Caching
+Load balancing
+Scaling
+Reliability
+Security
+Performance
+Trade-offs
+
+
+
+
+
 HLD vs LLD
 
 🔷 High-Level Design (HLD)
