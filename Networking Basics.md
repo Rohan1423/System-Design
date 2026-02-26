@@ -12,6 +12,8 @@ If someone intercepts traffic, they can read passwords.
 
 
 
+
+
 ==> What Does “Intercepting Traffic” Mean?
 
 When data travels from:
@@ -100,6 +102,9 @@ Server->>User: HTTPS Response (Encrypted)
 ==> HTTPS is HTTP secured using SSL/TLS encryption, ensuring confidentiality and data integrity.
 
 
+
+
+
 SSL (Secure Sockets Layer) and TLS (Transport Layer Security) are cryptographic protocols used to secure communication between a client and a server.
 
 👉 Today, we use TLS.
@@ -182,15 +187,11 @@ Note over Client,Server: Secure Communication Begins
 🔷 Why Use Public + Symmetric Encryption?
 
 Because:
-
 Asymmetric encryption (public/private key) is secure but slow
-
 Symmetric encryption is fast
 
 So TLS uses:
-
 Asymmetric → to exchange key
-
 Symmetric → for actual data
 
 Smart design.
@@ -198,21 +199,14 @@ Smart design.
 🔷 What is a Certificate?
 
 A digital certificate contains:
-
 Server public key
-
 Domain name
-
 Issuing Certificate Authority (CA)
-
 Expiry date
 
 Example CAs:
-
 DigiCert
-
 GlobalSign
-
 Let’s Encrypt
 
 If certificate is invalid:
@@ -222,29 +216,21 @@ Browser shows:
 🔷 Real Interview Example
 
 If designing a payment system:
-
 Non-functional requirement:
-
 All communication must use HTTPS (TLS 1.2+)
 
 Why?
 
 Protect card details
-
 Prevent man-in-the-middle attacks
-
 Ensure data integrity
 
 🔷 TLS in System Design
 
 TLS affects:
-
 Latency (handshake cost)
-
 CPU usage (encryption cost)
-
 Load balancer configuration
-
 Certificate renewal management
 
 In high-scale systems:
@@ -258,3 +244,177 @@ LoadBalancer -->|HTTP| AppServer1
 LoadBalancer -->|HTTP| AppServer2
 
 Load balancer decrypts traffic, internal communication may remain inside secure VPC.
+
+
+
+
+
+==> What is TLS Termination?
+
+-> TLS Termination means decrypting HTTPS traffic at the Load Balancer instead of at the application server.
+
+==> In simple words:
+User → HTTPS → Load Balancer
+Load Balancer decrypts it
+Then sends normal HTTP to internal servers
+
+==> Why Do We Need TLS Termination?
+
+Because:
+-> TLS encryption/decryption is CPU intensive
+-> Managing certificates on every server is complex
+-> Scaling becomes harder
+-> So we centralize TLS handling at the load balancer.
+
+==> Without TLS Termination:
+
+Every app server handles HTTPS.
+User -->|HTTPS| Server1
+User -->|HTTPS| Server2
+User -->|HTTPS| Server3
+Server1 --> Database
+Server2 --> Database
+Server3 --> Database
+
+Problems:
+-> Each server must:
+-> Store SSL certificates
+-> Perform TLS handshake
+-> Do encryption/decryption
+-> More CPU usage
+-> Harder certificate management
+
+
+==> With TLS Termination (Recommended):
+
+User -->|HTTPS| LoadBalancer
+LoadBalancer -->|HTTP| Server1
+LoadBalancer -->|HTTP| Server2
+LoadBalancer -->|HTTP| Server3
+Server1 --> Database
+Server2 --> Database
+Server3 --> Database
+
+Flow:
+1️⃣ User connects via HTTPS
+2️⃣ Load balancer performs TLS handshake
+3️⃣ Load balancer decrypts traffic
+4️⃣ Sends plain HTTP inside private network
+
+
+
+What Exactly Is “Termination”?
+
+-> Termination = The point where encrypted communication ends.
+
+At Load Balancer:
+-> TLS handshake happens
+-> Certificates validated
+-> Session keys created
+-> Traffic decrypted
+
+==> After that:
+Internal communication may not use TLS (inside secure VPC).
+
+==> Real-World Example
+
+-> Companies like:
+Amazon
+Netflix
+Google
+
+==> Use:
+AWS ELB / ALB
+NGINX
+HAProxy
+To terminate TLS.
+
+==> Is It Safe?
+
+Yes, if:
+-> Internal network is private (VPC)
+-> Firewalls restrict access
+-> Servers are not publicly exposed
+
+
+==> What If We Want End-to-End Encryption?
+
+Then we use:
+🔐 TLS Passthrough
+Load balancer does NOT decrypt.
+
+User -->|HTTPS| LoadBalancer
+LoadBalancer -->|HTTPS| Server1
+LoadBalancer -->|HTTPS| Server2
+
+Servers handle TLS themselves.
+
+==> Used when:
+-> Regulatory compliance required
+-> Zero-trust architectures
+-> Internal network not fully trusted
+
+==> TLS Termination vs TLS Passthrough
+
+Feature	                TLS Termination	            TLS Passthrough
+Decryption happens at	Load Balancer	            pp Server
+CPU usage	            Less on app servers	        More on app servers
+Certificate management	Centralized	                Distributed
+Security	            Good (if private network)	Stronger end-to-end
+
+
+==> Why System Designers Prefer Termination
+
+1️⃣ Better performance
+2️⃣ Easier certificate renewal
+3️⃣ Simpler scaling
+4️⃣ Centralized security control
+
+
+
+
+
+🔷 TLS re-encryption
+
+==> Normal TLS Termination (Basic Case):
+
+Flow:
+1️⃣ User connects via HTTPS.
+2️⃣ Load balancer decrypts traffic.
+3️⃣ Sends plain HTTP to app server.
+4️⃣ App server sends plain response back.
+5️⃣ Load balancer encrypts again before sending to user.
+
+So client communication is always encrypted.
+But inside the private network → traffic is plain HTTP.
+
+
+==> TLS Re-Encryption (More Secure Setup):
+
+Flow:
+Now we add extra security.
+1️⃣ User → LB: Encrypted
+2️⃣ LB decrypts
+3️⃣ LB processes request (routing, WAF, etc.)
+4️⃣ LB re-encrypts request
+5️⃣ Sends encrypted traffic to App Server
+
+So encryption exists:
+-> Client → Load Balancer
+-> Load Balancer → App Server
+-> That’s TLS re-encryption.
+
+==> Why Do We Re-Encrypt?
+
+Because sometimes:
+-> Internal network is not fully trusted
+-> Zero-trust architecture is required
+-> Compliance rules (banking, healthcare)
+-> Prevent internal lateral movement attacks
+
+The difference is:
+Setup	            Internal traffic
+TLS Termination	    HTTP (plain)
+TLS Re-encryption	HTTPS (encrypted)
+
+Client communication remains encrypted in both.
