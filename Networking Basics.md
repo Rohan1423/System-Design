@@ -418,3 +418,122 @@ TLS Termination	    HTTP (plain)
 TLS Re-encryption	HTTPS (encrypted)
 
 Client communication remains encrypted in both.
+
+
+
+
+
+==> Big Picture Difference
+                            TLS Passthrough	                TLS Re-Encryption
+Who manages certificates?	Every backend server	        Load balancer centrally
+Who can inspect traffic?	Only backend	                Load balancer + backend
+Infra complexity	        Higher on backend	            Higher on LB
+Observability	            Harder	                        Easier
+Security control	        Backend-level	                Centralized
+
+
+
+
+1️⃣ What TLS Passthrough Makes Easier
+
+==> True End-to-End Encryption
+LB cannot see anything.
+This makes compliance easier for:
+Financial systems
+Healthcare systems
+Zero-trust architectures
+
+Because:
+No intermediate system decrypts traffic.
+Security Responsibility Is Isolated
+
+Backend team fully owns:
+TLS certificates
+Cipher suites
+Security patches
+LB is “dumb pipe”.
+
+==> What It Makes Harder
+-> Certificate Management Becomes Painful
+If you have 100 servers:
+You need:
+100 certificates
+Renewal on 100 machines
+Syncing expiration
+Scaling pain increases.
+No Smart Routing
+Load balancer cannot see:
+/api/users
+/api/orders
+So:
+No path-based routing
+No header-based routing
+No WAF inspection
+It only routes by IP/Port.
+This makes microservices architecture harder.
+
+
+
+2️⃣ What TLS Re-Encryption Makes Easier
+
+Now this is what most big companies use.
+Centralized Certificate Management
+Only Load Balancer needs certificate.
+Backend servers:
+Can use internal certs
+Or private CA
+Or short-lived certs
+Much easier to manage at scale.
+
+==> Example:
+Companies like Netflix run thousands of services — centralized TLS simplifies infra massively.
+
+-> Smart Routing (Huge Advantage)
+Because LB decrypts traffic, it can:
+Route /payments → Service A
+Route /search → Service B
+Route /profile → Service C
+This makes microservices practical.
+Without this, you’d need separate domains or ports.
+
+-> WAF & Security Inspection
+Load balancer can:
+Block SQL injection
+Block XSS
+Rate limit
+Detect bots
+All before hitting backend.
+This reduces backend load and risk.
+
+-> Observability & Logging
+LB can log:
+HTTP status codes
+URLs
+Headers
+Latency
+
+==> With passthrough → you lose visibility.
+
+-> What It Makes Harder
+LB Becomes Heavy
+More CPU
+TLS decryption cost
+Certificate rotation responsibility
+Bigger blast radius if misconfigured
+
+
+
+==> So What’s The REAL Difference?
+
+-> It’s about where complexity lives.
+
+==> Passthrough → Push complexity to backend
+Backend manages TLS
+Backend handles security inspection
+LB stays simple
+
+==> Re-Encryption → Centralize complexity at LB
+LB manages TLS
+LB does inspection
+LB does routing logic
+Backend stays simpler
