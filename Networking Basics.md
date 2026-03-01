@@ -537,3 +537,54 @@ LB manages TLS
 LB does inspection
 LB does routing logic
 Backend stays simpler
+
+
+
+
+
+2️⃣ TCP vs UDP
+
+These are transport layer protocols.
+
+==> TCP (Transmission Control Protocol)
+
+Reliable
+Ordered delivery
+Error checking
+Slower
+Connection-oriented
+
+
+Used in:
+Web browsing
+Payments
+File transfer
+
+Example:
+Bank transactions must not lose data → Use TCP.
+
+==> UDP (User Datagram Protocol)
+
+Faster
+No guarantee of delivery
+No ordering
+No error correction
+Connectionless
+
+Used in:
+Live streaming
+Online gaming
+Video calls
+
+==> TCP vs UDP Diagram
+
+TCP Handshake
+Client->>Server: SYN
+Server->>Client: SYN-ACK
+Client->>Server: ACK
+
+
+
+UDP Communication
+Client->>Server: Send Data
+Note over Client,Server: No handshake, no guarantee
