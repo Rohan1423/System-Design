@@ -542,7 +542,7 @@ Backend stays simpler
 
 
 
-2️⃣ TCP vs UDP
+-> TCP vs UDP
 
 These are transport layer protocols.
 
@@ -588,3 +588,25 @@ Client->>Server: ACK
 UDP Communication
 Client->>Server: Send Data
 Note over Client,Server: No handshake, no guarantee
+
+
+
+
+=> DNS (Domain Name System)
+
+Converts domain names into IP addresses.
+
+-> Example: google.com → 142.250.x.x
+
+Computers understand IP, not domain names.
+
+DNS Resolution Flow:
+
+User->>DNS Resolver: Request google.com
+DNS Resolver->>Root DNS: Query
+Root DNS->>Resolver: .com server
+Resolver->>Authoritative DNS: Query google.com
+Authoritative DNS->>Resolver: Return IP
+Resolver->>User: IP Address
+
+-> DNS acts like the phonebook of the internet, mapping domain names to IP addresses.
