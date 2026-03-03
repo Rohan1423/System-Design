@@ -610,3 +610,41 @@ Authoritative DNS->>Resolver: Return IP
 Resolver->>User: IP Address
 
 -> DNS acts like the phonebook of the internet, mapping domain names to IP addresses.
+
+
+
+
+
+==> REST APIs
+
+REST = Representational State Transfer
+It is an architectural style for designing APIs.
+
+-> REST Principles
+
+Stateless
+Uses HTTP methods
+Resource-based URLs
+
+-> HTTP Methods
+
+Method	    Use
+GET	        Fetch data
+POST	    Create data
+PUT	        Update data
+
+
+REST Example:
+
+Client->>Server: GET /users/101
+Server->>Client: Returns user JSON
+
+
+-> Example Response:
+
+{
+  "id": 101,
+  "name": "Rohan"
+}
+
+-> REST APIs are stateless, resource-oriented interfaces that use standard HTTP methods.
