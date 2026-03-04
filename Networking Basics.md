@@ -648,3 +648,50 @@ Server->>Client: Returns user JSON
 }
 
 -> REST APIs are stateless, resource-oriented interfaces that use standard HTTP methods.
+
+
+
+
+
+==> What Happens When You Type google.com?
+
+This is a VERY popular interview question.
+
+Let’s break it step-by-step :
+
+-> Step 1: Browser Cache Check
+Browser checks if IP already cached.
+
+-> Step 2: DNS Lookup
+DNS resolves google.com → IP address.
+
+-> Step 3: TCP Connection
+Browser establishes TCP 3-way handshake.
+
+-> Step 4: TLS Handshake (if HTTPS)
+Encryption keys exchanged.
+
+-> Step 5: HTTP Request Sent
+Browser sends GET request.
+
+-> Step 6: Server Processing
+Google server:
+Checks request
+Fetches data
+Sends response
+
+-> Step 7: Browser Renders Page
+HTML parsed
+CSS applied
+JS executed
+
+
+-> Full Flow Diagram :
+
+User->>Browser: Type google.com
+Browser->>DNS: Resolve Domain
+DNS->>Browser: Return IP
+Browser->>Server: TCP Handshake
+Browser->>Server: HTTPS Request
+Server->>Browser: HTML Response
+Browser->>User: Render Page
