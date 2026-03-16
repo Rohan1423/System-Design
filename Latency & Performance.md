@@ -103,3 +103,20 @@ Availability	    Downtime per year
 99.999%	            ~5 minutes
 
 -> Large companies like Amazon Web Services target 99.99% or higher.
+
+
+
+
+
+==> SLA (Service Level Agreement)
+
+SLA = Contract between company and customer.
+It guarantees service performance.
+
+Example SLA:
+99.9% uptime
+Response time < 300ms
+If company fails → customer gets compensation.
+
+Example:
+Cloud providers like Google Cloud provide SLAs.
