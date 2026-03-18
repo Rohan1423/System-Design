@@ -120,3 +120,33 @@ If company fails → customer gets compensation.
 
 Example:
 Cloud providers like Google Cloud provide SLAs.
+
+
+
+
+
+==> SLO (Service Level Objective)
+
+SLO = Internal target set by engineering team.
+
+Example:
+99.95% uptime
+API latency < 150ms
+
+-> Engineers try to meet this so SLA is never violated.
+
+
+
+
+
+==> Relationship Between Them
+
+Think of it like this:
+SLO → Internal goal
+SLA → Customer promise
+
+-> Example:
+SLO = 99.95%
+SLA = 99.9%
+
+So engineers have buffer.
