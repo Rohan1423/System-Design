@@ -245,4 +245,9 @@ Supports JOIN	Avoid JOIN
 
 -> Performance
 SQL	            NoSQL
-Complex queries	High-speed simple queries
+Complex queries	High-speed simple  queries
+
+
+
+
+
