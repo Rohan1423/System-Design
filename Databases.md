@@ -245,9 +245,43 @@ Supports JOIN	Avoid JOIN
 
 -> Performance
 SQL	            NoSQL
-Complex queries	High-speed simple  queries
+Complex queries	High-speed simple queries
 
 
 
 
 
+=> ACID Properties
+ACID ensures reliable database transactions.
+
+
+A → Atomicity
+All or nothing
+
+Example:
+User places order
+Payment deducted
+Order created
+
+If payment succeeds but order fails → rollback everything
+
+
+C → Consistency
+Data remains valid
+
+Example:
+Bank balance cannot go negative
+Order must have a valid user_id
+
+
+I → Isolation
+Transactions don’t interfere
+
+Example:
+Two users buying last item
+Only one should succeed
+
+
+D → Durability
+Once saved, always saved
+Even if server crashes → data remains (disk persistence)
