@@ -290,7 +290,7 @@ Even if server crashes → data remains (disk persistence)
 
 
 
-==> What is Indexing (Deep Understanding)
+==> What is Indexing
 
 An index in a database is just like the index at the back of a book:
 Instead of reading the whole book, you jump directly to the page.
@@ -333,10 +333,11 @@ Until it finds user_id = 101
 
 Complexity:
 Time: O(n)
-For 1M rows → checks almost all rows 😢
+For 1M rows → checks almost all rows
+
 -> Case 2: WITH Index
 
--> Now create index:
+Now create index:
 CREATE INDEX idx_user_id ON orders(user_id);
 Internally DB builds something like:
 Index (sorted):
@@ -374,8 +375,7 @@ Searching a name in a phonebook by reading every page
 With Index:
 Jump directly using alphabet section (A → B → C)
 
--> Tradeoff
-
+==> Tradeoff:
 
 -> Pros
 Fast SELECT queries
@@ -428,9 +428,11 @@ WHERE user_id = 101 AND status = 'paid';
 
 
 -> Simple Visualization
+
 Without Index:
 [101][102][103][104][...]
    ↑ scan all
+
 With Index:
        103
      /     \
@@ -442,3 +444,113 @@ With Index:
 
 
 -> Index = extra data structure to trade storage + write speed for faster reads
+
+
+
+
+
+==> What is a Join?
+A join is used to combine rows from two or more tables based on a related column between them.
+Think of it like merging Excel sheets based on a common key.
+
+-> Example Tables
+
+Users table:
+id	name
+u1	Alice
+u2	Bob
+
+Orders table:
+order_id	user_id	product
+o1	u1	Laptop
+o2	u3	Mouse
+
+Notice:
+u1 exists in both tables
+u2 has no orders
+o2 belongs to u3, who isn’t in users table
+
+
+-> INNER JOIN
+
+Definition:
+Returns only the rows where there is a match in both tables.
+
+SQL:
+SELECT *
+FROM orders
+INNER JOIN users ON orders.user_id = users.id;
+
+Step-by-step:
+SQL checks each orders.user_id against users.id.
+If it finds a match → keep the row
+If no match → discard the row
+
+Result:
+order_id	user_id	product	id	name
+o1	u1	Laptop	u1	Alice
+
+✅ Only o1 with u1 appears because only u1 exists in both tables.
+❌ o2 is discarded (no matching u3 in users)
+❌ u2 is discarded (no orders)
+
+-> Key takeaway for INNER JOIN
+Only “intersection” of tables
+If either side doesn’t match, row is excluded
+
+
+-> LEFT JOIN (or LEFT OUTER JOIN)
+
+Definition:
+Returns all rows from the LEFT table (first table) plus matching rows from the RIGHT table.
+If there is no match, the right table columns are filled with NULL.
+
+SQL:
+SELECT *
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id;
+
+Step-by-step:
+SQL keeps all rows from users.
+Looks for matching orders.user_id.
+If found → join the order info
+If not found → fill orders columns with NULL
+
+Result:
+id	name	order_id	user_id	product
+u1	Alice	o1	u1	Laptop
+u2	Bob	NULL	NULL	NULL
+
+✅ u1 has an order → shows order info
+✅ u2 has no order → orders columns are NULL (still included!)
+
+-> Visualization:
+
+Think of LEFT JOIN as:
+
+Users Table (LEFT)
++-----+------+
+| u1  | Alice|
+| u2  | Bob  |
++-----+------+
+
+Orders Table (RIGHT)
++----------+---------+
+| o1       | u1      |
+| o2       | u3      |
++----------+---------+
+
+LEFT JOIN Result:
++-----+-------+----------+
+| u1  | Alice | o1       |
+| u2  | Bob   | NULL     |
+
+-> Comparison Table
+Feature	          INNER JOIN	              LEFT JOIN
+Rows returned	    Only matching	            All left table + matches
+Missing matches	  Excluded	                Right table → NULL
+Use case	        Only need exact matches	  Include all primary records, even without match
+
+-> Example Use Case
+INNER JOIN: Show users who made orders.
+LEFT JOIN: Show all users, including those who never ordered → useful for reports, stats, analytics.
