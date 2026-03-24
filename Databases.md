@@ -461,9 +461,9 @@ u1	Alice
 u2	Bob
 
 Orders table:
-order_id	user_id	product
-o1	u1	Laptop
-o2	u3	Mouse
+order_id	user_id	  product
+o1	      u1	      Laptop
+o2	      u3	      Mouse
 
 Notice:
 u1 exists in both tables
@@ -487,8 +487,8 @@ If it finds a match → keep the row
 If no match → discard the row
 
 Result:
-order_id	user_id	product	id	name
-o1	u1	Laptop	u1	Alice
+order_id	user_id	  product	  id	name
+o1	      u1	      Laptop	  u1	Alice
 
 ✅ Only o1 with u1 appears because only u1 exists in both tables.
 ❌ o2 is discarded (no matching u3 in users)
@@ -554,3 +554,61 @@ Use case	        Only need exact matches	  Include all primary records, even wit
 -> Example Use Case
 INNER JOIN: Show users who made orders.
 LEFT JOIN: Show all users, including those who never ordered → useful for reports, stats, analytics.
+
+
+
+
+
+==> Normalization
+Goal: Reduce redundancy (duplicate data) and improve data integrity.
+
+-> Why is redundancy bad?
+
+Example of bad design:
+
+order_id	user_name	  user_email
+1	        Rohan	      rohan@mail.com
+2	        Rohan	      rohan@mail.com
+3	        Priya	      priya@mail.com
+
+-> Problem:
+The same user info is repeated multiple times.
+Updates are error-prone: if Rohan changes email, you need to update every row.
+Wastes storage and can create inconsistencies.
+
+-> Good Design – Normalize Tables
+Split into logical tables:
+
+Users Table
+
+user_id	    user_name	    user_email
+101	        Rohan	        rohan@mail.com
+102	        Priya	        priya@mail.com
+
+Orders Table
+
+order_id	  user_id	  order_date
+1	          101	      2026-03-24
+2	          101	      2026-03-24
+3	          102	      2026-03-24
+
+-> Benefits:
+Each piece of data stored once.
+Easier to update info.
+Saves space, avoids inconsistencies.
+
+
+Normal Forms – Simplified
+
+1NF (First Normal Form) – Remove repeating columns
+Each column has atomic (single) values.
+No lists or repeated groups in a column.
+
+
+2NF (Second Normal Form) – Remove partial dependency
+If table has a composite key, every non-key column must depend on the whole key, not just part of it.
+
+
+3NF (Third Normal Form) – Remove transitive dependency
+Non-key columns shouldn’t depend on other non-key columns.
+Example: Don’t store user_email in orders if user_id already links to users.
