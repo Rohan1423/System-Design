@@ -612,3 +612,116 @@ If table has a composite key, every non-key column must depend on the whole key,
 3NF (Third Normal Form) – Remove transitive dependency
 Non-key columns shouldn’t depend on other non-key columns.
 Example: Don’t store user_email in orders if user_id already links to users.
+
+
+
+--> Example (Bad Design -> 1NF -> 2NF -> 3NF):
+
+Step 0: Bad Design (Unnormalized Table)
+order_id	user_name	user_email	product_name	quantity
+1	Rohan	rohan@mail.com
+	Laptop	1
+2	Rohan	rohan@mail.com
+	Mouse	2
+3	Priya	priya@mail.com
+	Laptop	1
+
+-> Problems:
+user_name & user_email repeat for each order.
+Updates are error-prone.
+Data redundancy everywhere.
+
+
+-> 1NF (First Normal Form)
+Goal: Remove repeating groups / atomic values.
+Each column must have a single value.
+No arrays or multiple values in one column.
+
+Example (Already Atomic):
+
+order_id	  user_name	user_email	  product_name	  quantity
+1	Rohan	    rohan@mail.com          Laptop	        1
+2	Rohan	    rohan@mail.com          Mouse	          2
+3	Priya	    priya@mail.com          Laptop	        1
+
+Here, each cell is atomic. 1NF satisfied.
+But still redundant data exists (user info repeated) → move to 2NF.
+
+
+-> 2NF (Second Normal Form)
+Goal: Remove partial dependency
+If a table has a composite key, every non-key column must depend on the whole key.
+Split data into logical tables.
+Composite Key Example: (order_id, product_name) uniquely identifies each row.
+user_name & user_email depend only on order_id, not the whole key → partial dependency.
+
+Solution: Split Tables
+
+Users Table:
+
+user_id	  user_name	  user_email
+101	      Rohan	      rohan@mail.com
+102	      Priya	      priya@mail.com
+
+Orders Table:
+
+order_id	  user_id
+1	          101
+2	          101
+3	          102
+
+OrderDetails Table (depends on full composite key order_id + product_name):
+
+order_id	product_name	quantity
+1	        Laptop	      1
+2	        Mouse	        2
+3	        Laptop	      1
+
+-> 2NF satisfied:
+No partial dependencies.
+Non-key columns depend on whole key.
+
+
+-> 3NF (Third Normal Form)
+Goal: Remove transitive dependency
+A non-key column should not depend on another non-key column.
+Only primary key → non-key columns dependencies allowed.
+
+Example Issue:
+
+If Orders table had:
+
+order_id	user_id	  user_email
+1	        101	      rohan@mail.com
+2	        101	      rohan@mail.com
+
+user_email depends on user_id → transitive dependency (order_id → user_id → user_email)
+
+Fix: Remove transitive dependency by keeping user_email only in Users table.
+
+-> Final 3NF Tables
+
+Users:
+
+user_id	  user_name	  user_email
+101	      Rohan 	    rohan@mail.com
+102	      Priya	      priya@mail.com
+
+Orders:
+
+order_id	  user_id
+1	          101
+2	          101
+3	          102
+
+OrderDetails
+
+order_id	 product_name	  quantity
+1	         Laptop	        1
+2	         Mouse	        2
+3	         Laptop	        1
+
+==> Benefits:
+No redundancy.
+Easy updates (change email once in Users table).
+Data integrity maintained.
