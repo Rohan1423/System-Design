@@ -725,3 +725,60 @@ order_id	 product_name	  quantity
 No redundancy.
 Easy updates (change email once in Users table).
 Data integrity maintained.
+
+
+
+
+
+==> Primary Index
+Primary index = built automatically on the primary key of the table.
+Every table can have only one primary key → so only one primary index.
+The primary key must be unique (no duplicate values).
+Often, the primary index is clustered in relational databases like MySQL/InnoDB.
+Clustered = data is physically stored in the order of the primary key.
+
+-> Example:
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    created_at DATE
+);
+
+Here, order_id is the primary key.
+A primary index is automatically created on order_id.
+Looking up order_id = 102 is super fast because the index tells the database exactly where to go.
+
+-> Analogy: Primary index = your main map to the data, and there’s only one main map.
+
+
+-> Secondary Index
+Secondary index = index on any other column(s) that are not the primary key.
+You can have many secondary indexes in a table.
+Can be non-unique (multiple rows can have the same value).
+Usually non-clustered, meaning the data isn’t stored in this order, but the index points to the rows.
+
+-> Example:
+CREATE INDEX idx_user ON orders(user_id);
+CREATE INDEX idx_created ON orders(created_at);
+idx_user → helps you find all orders for a specific user_id quickly.
+idx_created → helps you find all orders on a specific created_at date.
+
+-> Analogy: Secondary index = extra bookmarks in your book for frequently looked-up topics. You can have as many bookmarks as you want.
+
+-> Key Differences
+
+Feature	                  Primary Index	                    Secondary Index
+Built on	                Primary key	                      Other columns (non-primary)
+Uniqueness	              Must be unique	                  Can be non-unique
+Number                    allowed	Only 1	                  Multiple
+Clustered/Non-clustered	  Usually clustered	                Usually non-clustered
+Physical order	          Table is stored in index order	  Table storage doesn’t change
+Example	                  PRIMARY KEY(order_id)	            INDEX(user_id), INDEX(created_at)
+
+-> Why Use Secondary Index?
+
+Imagine you have 1 million orders, and you want all orders for user_id = 42:
+Without index → database scans all 1 million rows → slow
+With secondary index on user_id → database goes straight to relevant rows → fast
+Primary index = fast lookup for the unique main key.
+Secondary index = fast lookup for any other frequently queried column.
