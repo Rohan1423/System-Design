@@ -782,3 +782,96 @@ Without index → database scans all 1 million rows → slow
 With secondary index on user_id → database goes straight to relevant rows → fast
 Primary index = fast lookup for the unique main key.
 Secondary index = fast lookup for any other frequently queried column.
+
+
+
+
+
+==> Practice: E-commerce Order DB Design
+
+Let’s design like Amazon.
+
+-> Entities
+Users
+Products
+Orders
+Order Items
+Payments
+
+==> Tables:
+
+-> Users
+users (
+  id BIGINT PRIMARY KEY,
+  name VARCHAR,
+  email VARCHAR UNIQUE,
+  created_at TIMESTAMP
+)
+-> Products
+products (
+  id BIGINT PRIMARY KEY,
+  name VARCHAR,
+  price DECIMAL,
+  stock INT
+)
+-> Orders
+orders (
+  id BIGINT PRIMARY KEY,
+  user_id BIGINT,
+  status VARCHAR,
+  total_amount DECIMAL,
+  created_at TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+)
+-> Order Items
+order_items (
+  id BIGINT PRIMARY KEY,
+  order_id BIGINT,
+  product_id BIGINT,
+  quantity INT,
+  price DECIMAL,
+  FOREIGN KEY (order_id) REFERENCES orders(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+)
+
+-> Payments
+payments (
+  id BIGINT PRIMARY KEY,
+  order_id BIGINT,
+  status VARCHAR,
+  payment_method VARCHAR,
+  FOREIGN KEY (order_id) REFERENCES orders(id)
+)
+
+-> Relationships
+
+erDiagram:
+
+    USERS ||--o{ ORDERS : places
+    ORDERS ||--|{ ORDER_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : included_in
+    ORDERS ||--|| PAYMENTS : has
+
+
+-> Indexing Strategy
+
+Add indexes on:
+INDEX (user_id)
+INDEX (order_id)
+INDEX (product_id)
+INDEX (created_at)
+
+-> Typical Queries
+
+Get user orders:
+SELECT * FROM orders WHERE user_id = 101;
+
+Get order details:
+SELECT * FROM order_items WHERE order_id = 500;
+
+-> Join example:
+
+SELECT o.id, p.name
+FROM orders o
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id;
