@@ -61,3 +61,35 @@ It gives up instant accurate data everywhere
 Faster responses
 Ability to handle millions of users
 Easy horizontal scaling
+
+
+
+
+
+==> Types of NoSQL Databases
+1) Key-Value Store (Example: Redis)
+Data stored as: key → value
+
+-> Example
+"user:101" → "Rohan"
+"cart:101" → ["item1", "item2"]
+
+-> Use Cases
+Caching
+Sessions
+Rate limiting
+Leaderboards
+
+-> Diagram
+
+App --> Redis
+Redis --> Key1["user:101"]
+Redis --> Key2["cart:101"]
+
+-> Why Fast?
+In-memory
+O(1) lookup
+
+-> Limitations
+No complex queries
+No joins
