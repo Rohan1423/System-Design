@@ -111,11 +111,16 @@ Often used as a cache, session store, or real-time data store
 -> Why fast?
 Because it stores data in RAM, not on disk.
 
+-> What “stored in RAM” actually means
+When we say Redis stores data in RAM, it means: Your data is kept directly in the computer’s main memory, not saved in files on the hard drive.
+
 -> How It Works Internally
-Traditional DB (like MySQL)
+
+Traditional DB (like MySQL):
 Data stored on disk
 Slower reads/writes
-Redis
+
+Redis:
 Data stored in memory (RAM)
 Access time ≈ microseconds
 
@@ -161,19 +166,15 @@ Very efficient execution
 -> Common Use Cases (VERY IMPORTANT)
 
 1. Caching (Most common)
-
 Instead of hitting DB:
 App → Redis → (if miss) → DB
-
 -> Example:
 Store API response
 Reduce DB load
 
 2. Session Storage
 session:abc123 → user data
-
 Used in:
-
 Login systems
 Authentication
 
@@ -252,3 +253,41 @@ User → Backend → Redis (fast)
 -> Think of Redis like: "Your app’s short-term memory (fast but temporary)"
 
 And SQL DB like: "Your long-term storage (slower but permanent)"
+
+
+
+
+
+2) Document Database (Example: MongoDB)
+
+Stores data as JSON-like documents.
+
+-> Example
+{
+  "user_id": 101,
+  "name": "Rohan",
+  "orders": [
+    { "order_id": 1, "amount": 500 },
+    { "order_id": 2, "amount": 300 }
+  ]
+}
+
+-> Diagram
+App --> MongoDB
+MongoDB --> Doc1["User Document"]
+MongoDB --> Doc2["Product Document"]
+
+-> Use Cases
+User profiles
+Product catalogs
+Content management
+Flexible schema apps
+
+-> Advantages
+Flexible schema
+Easy to scale
+Nested data (no joins)
+
+-> Limitations
+Data duplication
+Hard to maintain consistency
