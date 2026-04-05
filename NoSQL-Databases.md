@@ -291,3 +291,42 @@ Nested data (no joins)
 -> Limitations
 Data duplication
 Hard to maintain consistency
+
+
+
+
+
+3 Column Database (Wide Column)
+
+-> Examples:
+Cassandra
+HBase
+
+Stores data by columns instead of rows.
+
+-> Example
+
+UserID | Name | Order1 | Order2 | Order3
+101    | Rohan| 500    | 300    | 200
+
+Optimized for: Large-scale reads & writes
+
+-> Diagram
+App --> ColumnDB
+ColumnDB --> Row1
+ColumnDB --> Row2
+
+-> Use Cases
+Time-series data
+Analytics
+Logging systems
+High write systems
+
+-> Advantages
+Massive scalability
+High throughput
+Good for big data
+
+-> Limitations
+Complex queries are hard
+Not ideal for transactions
