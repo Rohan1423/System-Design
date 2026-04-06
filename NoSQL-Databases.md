@@ -330,3 +330,63 @@ Good for big data
 -> Limitations
 Complex queries are hard
 Not ideal for transactions
+
+
+
+
+
+-> SQL vs NoSQL (VERY IMPORTANT)
+
+SQL	                  NoSQL
+Structured	          Flexible
+Fixed schema	        Dynamic schema
+ACID	                BASE (eventual consistency)
+Vertical scaling	    Horizontal scaling
+Strong consistency	  Eventual consistency
+
+-> When to Use SQL
+Use SQL when:
+Strong consistency required
+Transactions needed
+Relationships important
+Complex joins needed
+
+-> Example
+Banking system
+Payment system
+Order processing
+
+-> When to Use NoSQL
+Use NoSQL when:
+Massive scale
+Flexible schema
+High throughput
+Low latency
+
+-> Example
+Chat app
+Social media feed
+Real-time analytics
+Caching
+Real-World Thinking
+
+Companies like:
+
+Amazon
+Use both SQL + NoSQL
+
+Netflix
+Heavy NoSQL usage
+
+-> Hybrid Architecture (Most Common)
+App --> SQLDB
+App --> Redis
+App --> MongoDB
+
+Use:
+SQL → transactions
+Redis → cache
+MongoDB → flexible data
+
+-> “When would you choose NoSQL over SQL?”
+I would choose NoSQL when the system requires horizontal scalability, flexible schema, and high throughput, and when strict ACID guarantees are not critical.
