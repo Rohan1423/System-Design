@@ -44,3 +44,49 @@ Single point of failure
 
 -> Real-World
 Early-stage apps or startups often use vertical scaling first.
+
+
+
+
+
+3 Horizontal Scaling (Scale Out)
+
+-> Definitin
+Add more machines instead of increasing one machine
+
+-> Diagram
+Users --> LoadBalancer
+LoadBalancer --> Server1
+LoadBalancer --> Server2
+LoadBalancer --> Server3
+
+-> Example
+Instead of 1 server:
+1 server → 1000 users
+10 servers → 10,000 users
+
+-> Advantages
+Handles massive scale
+Fault tolerant
+Flexible
+
+-> Challenges
+Needs load balancer
+Data consistency issues
+Complex architecture
+
+-> Real-World
+Companies like:
+Netflix
+Amazon
+Use horizontal scaling.
+
+
+
+-> Vertical vs Horizontal
+Feature	        Vertical	            Horizontal
+Scaling type	Upgrade machine	        Add machines
+Complexity	    Low	                    High
+Limit	        Hardware limit	        Almost unlimited
+Cost	        Expensive long-term	    More flexible
+Failure	        Single point failure	Fault tolerant
