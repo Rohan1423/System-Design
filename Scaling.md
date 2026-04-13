@@ -90,3 +90,61 @@ Complexity	    Low	                    High
 Limit	        Hardware limit	        Almost unlimited
 Cost	        Expensive long-term	    More flexible
 Failure	        Single point failure	Fault tolerant
+
+
+
+
+
+4 Auto Scaling
+
+-> Definition
+Automatically adds/removes servers based on traffic
+
+-> Diagram
+Users --> LoadBalancer
+LoadBalancer --> Server1
+LoadBalancer --> Server2
+AutoScaler -->|Add Server| Server3
+AutoScaler -->|Remove Server| Server2
+
+-> Example
+Traffic pattern:
+Morning → 2 servers
+Afternoon peak → 10 servers
+Night → back to 2 servers
+System adjusts automatically.
+
+-> How It Works
+Auto scaler monitors:
+CPU usage
+Memory usage
+Request rate
+
+Rules:
+IF CPU > 70% → Add server
+IF CPU < 30% → Remove server
+
+-> Advantages
+Cost efficient
+Handles traffic spikes
+No manual intervention
+
+-> Challenges
+Cold start delay
+Scaling lag
+Needs proper thresholds
+
+-> Real-World Example
+Platforms like Amazon Web Services provide:
+Auto Scaling Groups
+Elastic Load Balancers
+
+
+-> Typical Production Setup
+Users --> LoadBalancer
+LoadBalancer --> Server1
+LoadBalancer --> Server2
+AutoScaler --> Server3
+Server1 --> Database
+Server2 --> Database
+Server3 --> Database
