@@ -54,3 +54,37 @@ Gaming servers
 NGINX (also used as load balancer)
 HAProxy
 Amazon Web Services Elastic Load Balancer (ELB)
+
+
+
+
+
+-> Why Do We Need a Load Balancer?
+
+-> Problem Without Load Balancer
+
+All users hit one server:
+Users --> Server1
+
+-> Problems:
+Server overload → crash
+Slow response
+No scalability
+Single point of failure
+
+-> Solution: Load Balancer
+
+Distributes traffic across multiple servers:
+Users --> LoadBalancer
+LoadBalancer --> Server1
+LoadBalancer --> Server2
+LoadBalancer --> Server3
+
+-> Why It’s Needed
+
+A Load Balancer helps:
+Distribute traffic evenly
+Improve availability
+Increase scalability
+Handle failures (health checks)
+Prevent server overload
