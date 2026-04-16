@@ -88,3 +88,75 @@ Improve availability
 Increase scalability
 Handle failures (health checks)
 Prevent server overload
+
+
+
+
+
+Types of Load Balancers
+
+-> L4 Load Balancer (Layer 4 - Transport Layer)
+
+Works on:
+IP address
+TCP/UDP port
+
+Cannot see:
+URL (/api/users)
+Headers
+Cookies
+
+-> L4 Diagram
+Client --> L4LB
+L4LB --> Server1
+L4LB --> Server2
+
+-> Example
+Routing based on:
+IP + Port only
+So request goes blindly to a server.
+
+-> Pros:
+Very fast
+Low latency
+Simple
+
+-> Cons:
+No smart routing
+No path-based decisions
+
+-> L7 Load Balancer (Layer 7 - Application Layer)
+
+Works on:
+HTTP/HTTPS
+URL path
+Headers
+Cookies
+
+-> L7 Diagram
+Client --> L7LB
+L7LB -->|/users| UserService
+L7LB -->|/orders| OrderService
+L7LB -->|/payments| PaymentService
+
+-> Example
+Requests:
+/api/users → User Service
+/api/orders → Order Service
+
+-> Pros:
+Smart routing
+API-based routing
+Supports microservices
+
+-> Cons:
+Slower than L4
+More CPU overhead
+
+-> L4 vs L7
+Feature	        L4	        L7
+Layer	        Transport	Application
+Data visibility	IP/Port	    Full HTTP
+Routing	        Basic	    Intelligent
+Speed	        Faster	    Slower
+Use case	    TCP apps	Web apps
