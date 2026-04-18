@@ -160,3 +160,32 @@ Data visibility	IP/Port	    Full HTTP
 Routing	        Basic	    Intelligent
 Speed	        Faster	    Slower
 Use case	    TCP apps	Web apps
+
+
+
+
+
+-> Load Balancing Algorithms
+
+1. Round Robin
+Concept:
+Requests are distributed one by one in order.
+
+-> Diagram
+User1 --> Server1
+User2 --> Server2
+User3 --> Server3
+User4 --> Server1
+
+-> Example:
+Request 1 → Server A  
+Request 2 → Server B  
+Request 3 → Server C  
+Request 4 → Server A
+
+-> Pros:
+Simple
+Fair distribution
+
+-> Cons:
+Doesn't consider server load
