@@ -189,3 +189,30 @@ Fair distribution
 
 -> Cons:
 Doesn't consider server load
+
+
+2. Least Connections
+Concept:
+Send request to server with least active connections.
+
+-> Diagram
+Users --> LB
+LB --> Server1["Server1 (10 connections)"]
+LB --> Server2["Server2 (3 connections)"]
+LB --> Server3["Server3 (7 connections)"]
+
+-> Request goes to Server2
+
+-> Example:
+Server	    Active Requests
+A	        10
+B	        3 <-
+C	        7
+
+-> So choose B
+
+-> Pros:
+Better performance
+Avoids overloaded servers
+-> Cons:
+Slight overhead to track connections
