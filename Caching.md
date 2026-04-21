@@ -1,75 +1,62 @@
 What is Caching (in simple terms)?
-
 Caching = storing frequently used data in a faster place so you can access it quickly later.
-
 Instead of recomputing or fetching data again and again from a slow source (like a database), you store it somewhere fast (like memory).
 
-🔹 Real-life analogy
-
+-> Real-life analogy
 Think of caching like this:
-
 You order food from a restaurant → takes 30 minutes
 Next time, instead of cooking again, you store leftovers in your fridge → takes 30 seconds
+The fridge = cache
+Cooking again = fetching from database
 
-👉 The fridge = cache
-👉 Cooking again = fetching from database
-
-🔹 Why do we need caching?
-
+-> Why do we need caching?
 Without caching:
-
 Every request hits the database
 Database becomes slow
 System performance drops
 
 With caching:
-Faster response time ⚡
-Reduced database load 📉
-Better scalability 📈
+Faster response time
+Reduced database load
+Better scalability
 
-🔹 How caching works (step-by-step)
+-> How caching works (step-by-step)
 User requests data (e.g., user profile)
 System checks cache:
-✅ If data exists → return immediately (cache hit)
-❌ If not → fetch from DB (cache miss)
+If data exists → return immediately (cache hit)
+If not → fetch from DB (cache miss)
 Store fetched data in cache for next time
 
-🔹 Example (very important)
-
+-> Example (very important)
 Imagine you're building a website:
-
 Without cache
 User → Server → Database → Server → User
 With cache
 User → Server → Cache → Server → User
                   ↓ (if miss)
                Database
-🔹 Types of caching
+
+-> Types of caching
 1. In-Memory Cache
 
 Stored in RAM (very fast)
-
 Example:
 Redis
 Memcached
-
 -> Used in backend systems
 
 2. Browser Cache
 
 Stored in user’s browser
-
 Images, CSS, JS files
 Reduces loading time for repeat visits
+
 3. CDN Cache
 
 Stored on global servers
-
 Example:
-
 Cloudflare
 Akamai
-
 -> Used for static content like images/videos
 
 4. Database Cache
@@ -79,7 +66,6 @@ Some databases internally cache queries
 -> Cache Hit vs Cache Miss
 Cache Hit → Data found → FAST 
 Cache Miss → Data not found → SLOW 
-
 Goal: Increase cache hit ratio
 
 -> Cache Eviction (very important)
