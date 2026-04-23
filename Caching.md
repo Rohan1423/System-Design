@@ -1,4 +1,4 @@
-What is Caching (in simple terms)?
+-> What is Caching (in simple terms)?
 Caching = storing frequently used data in a faster place so you can access it quickly later.
 Instead of recomputing or fetching data again and again from a slow source (like a database), you store it somewhere fast (like memory).
 
@@ -116,3 +116,41 @@ Caching is:
 A performance optimization technique
 Stores data temporarily in a fast storage layer
 Reduces load on backend systems
+
+
+
+
+
+-> Cache Invalidation Strategies
+
+1. Time-based (TTL)
+
+Cache expires after 5 minutes
+Simple but may show stale data.
+
+2. Write-through
+
+Update cache + DB together:
+
+sequenceDiagram
+Client->>Server: Update Data
+Server->>Database: Update
+Server->>Cache: Update
+
+3. Cache-aside (Most common)
+
+sequenceDiagram
+Client->>Server: Request
+Server->>Cache: Check
+Cache-->>Server: Miss
+Server->>Database: Fetch
+Server->>Cache: Store
+Server->>Client: Response
+
+On update:
+Invalidate cache
+
+4. Write-back (advanced)
+Write to cache first
+Sync to DB later
+Used in high-performance systems.
