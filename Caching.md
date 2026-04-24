@@ -154,3 +154,39 @@ Invalidate cache
 Write to cache first
 Sync to DB later
 Used in high-performance systems.
+
+
+
+
+
+-> Cache Eviction
+
+-> Problem
+Cache has limited memory.
+When full → which data to remove?
+
+-> Policies
+
+-> LRU (Least Recently Used)
+Remove item not used for longest time.
+-> Example
+Cache: A B C D
+Access: A, B
+Evict → C (least recently used)
+
+-> LFU (Least Frequently Used)
+Remove item used least times.
+-> Example
+A (used 10 times)
+B (used 2 times)
+C (used 1 time)
+Evict → C
+
+-> LRU vs LFU
+Policy	        Based On
+LRU	            Last used time
+LFU	            Usage frequency
+
+-> Real-world
+Redis uses LRU (by default variants)
+LFU used in recommendation systems
