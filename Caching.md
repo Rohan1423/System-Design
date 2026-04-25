@@ -190,3 +190,47 @@ LFU	            Usage frequency
 -> Real-world
 Redis uses LRU (by default variants)
 LFU used in recommendation systems
+
+
+
+
+
+-> CDN (Content Delivery Network)
+
+-> What is CDN?
+A globally distributed cache system
+Stores static content closer to users.
+
+-> Without CDN
+UserIndia --> ServerUS
+UserIndia --> ServerUS
+High latency
+
+-> With CDN
+UserIndia --> CDNIndia
+CDNIndia --> ServerUS
+
+-> Flow
+User requests image
+CDN checks local cache
+If found → return fast
+If not → fetch from origin server
+
+-> Benefits
+Low latency
+Faster loading
+Reduced server load
+Global scalability
+
+-> Example
+When you open:
+Netflix
+YouTube
+Videos are served from nearest CDN.
+
+-> Types of Caching (Interview Bonus)
+Type	            Example
+Client cache	    Browser
+CDN cache	        Cloudflare
+Server cache	    Redis
+DB cache	        Query cache
