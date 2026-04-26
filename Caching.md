@@ -234,3 +234,78 @@ Client cache	    Browser
 CDN cache	        Cloudflare
 Server cache	    Redis
 DB cache	        Query cache
+
+
+
+
+
+-> Caching can happen at multiple layers:
+
+-> Flow
+User --> ClientCache
+ClientCache --> CDN
+CDN --> Server
+Server --> ServerCache
+ServerCache --> Database
+Database --> DBCache
+
+Each layer reduces load on the next one.
+
+1 Client Cache (Browser Cache)
+-> What it is
+
+Cache stored in the user’s browser.
+
+-> Flow
+User->>Browser: Request image
+Browser->>Browser: Check cache
+Browser-->>User: Return from cache (if exists)
+Browser->>Server: If not cached
+
+-> Example
+You open a website twice:
+First time → downloads CSS, JS
+Second time → loads instantly from browser
+
+-> Controlled By
+HTTP headers:
+Cache-Control: max-age=3600
+ETag: "abc123"
+
+-> Benefits
+Zero server load
+Instant response
+
+-> Problem
+Hard to update (stale content)
+User-specific behavior
+
+2 CDN Cache
+-> What it is
+
+Cache stored on globally distributed servers.
+
+Example:
+Cloudflare
+Akamai
+
+-> Flow
+User->>CDN: Request image
+CDN->>CDN: Check cache
+CDN-->>User: Return (if cached)
+CDN->>OriginServer: If miss
+OriginServer-->>CDN: Response
+CDN-->>User: Response
+
+-> Example
+Opening a video on YouTube:
+Served from nearby CDN, not main server
+
+-> Benefits
+Low latency (geo proximity)
+Reduces origin server load
+Scales globally
+
+-> Problem
+Cache invalidation across regions
+Mostly for static content
