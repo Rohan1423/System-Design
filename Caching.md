@@ -309,3 +309,81 @@ Scales globally
 -> Problem
 Cache invalidation across regions
 Mostly for static content
+
+3 Server Cache (Application Cache)
+-> What it is
+
+Cache inside your backend system.
+Example:
+Redis
+Memcached
+
+-> Flow (Cache-Aside)
+Client->>Server: Request
+Server->>Cache: Check
+Cache-->>Server: Miss
+Server->>Database: Fetch
+Server->>Cache: Store
+Server-->>Client: Response
+
+-> Example
+GET /product/101
+First request → DB
+Next requests → Redis (fast)
+
+-> Benefits
+Very fast (in-memory)
+Reduces DB load
+Flexible
+
+-> Problem
+Cache invalidation needed
+Extra layer to maintain
+
+4 DB Cache (Query Cache)
+-> What it is
+
+Cache inside the database itself.
+Stores results of queries.
+
+-> Flow
+App->>Database: Query
+Database->>DBCache: Check
+DBCache-->>Database: Hit
+Database-->>App: Return result
+
+-> Example
+SELECT * FROM products WHERE id = 101;
+If same query runs again → DB returns cached result.
+
+-> Benefits
+Faster than hitting disk
+Transparent to application
+
+-> Problems
+Invalidated on data change
+Not flexible
+Less control than Redis
+
+-> Full Comparison
+Type	        Location	        Speed	    Use Case
+Client Cache	Browser	            ⚡⚡⚡	        Static assets
+CDN Cache	    Global edge	        ⚡⚡	        Images, videos
+Server Cache	Backend	            ⚡⚡⚡	        API responses
+DB Cache	    Inside DB	        ⚡	        Query optimization
+
+-> Real System Example
+Let’s say you open product page:
+User --> BrowserCache
+BrowserCache --> CDN
+CDN --> Server
+Server --> Redis
+Redis --> Database
+
+-> Request flow:
+Browser cache?
+CDN cache?
+Redis cache?
+DB query?
+
+-> This layered caching = high performance system
