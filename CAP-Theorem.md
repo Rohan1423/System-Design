@@ -25,3 +25,28 @@ You must choose between:
 Consistency
 Availability
 WHEN partition happens
+
+
+1) Consistency (C)
+
+-> Meaning
+All nodes show the same data at the same time
+
+-> Example
+User updates balance:
+Server A → ₹1000 → ₹500
+Server B → must also immediately show ₹500
+No stale data allowed.
+
+-> Diagram
+Client --> ServerA
+Client --> ServerB
+ServerA -->|Updated: 500| ServerB
+
+-> Pros
+Always correct data
+No confusion
+
+-> Cons
+Slower system
+May block requests
