@@ -50,3 +50,26 @@ No confusion
 -> Cons
 Slower system
 May block requests
+
+2) Availability (A)
+
+-> Meaning
+System always responds, even if data is not latest
+
+-> Example
+If Server B is outdated:
+Server B still responds: ₹1000
+Even if it's slightly wrong → it still responds
+
+-> Diagram
+Client --> ServerA
+Client --> ServerB
+ServerB --> Response["Old Data (Still responds)"]
+
+-> Pros
+Always responds
+Fast system
+No downtime
+
+-> Cons
+May return stale data
