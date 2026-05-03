@@ -73,3 +73,23 @@ No downtime
 
 -> Cons
 May return stale data
+
+3) Partition Tolerance (P)
+
+-> Meaning
+System continues working even if network fails between nodes
+
+-> Example
+Servers cannot communicate:
+Server A ❌ Server B
+System must still operate somehow.
+
+-> Diagram
+A --> X
+X --> B
+
+-> The CAP Tradeoff
+When partition happens:
+Choice	        Result
+CP	            Correct data, possible downtime
+AP	            Always available, maybe stale data
