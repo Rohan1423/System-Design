@@ -93,3 +93,22 @@ When partition happens:
 Choice	        Result
 CP	            Correct data, possible downtime
 AP	            Always available, maybe stale data
+
+
+-> CP System (Consistency + Partition Tolerance)
+
+-> Behavior
+Blocks requests if data cannot sync
+Ensures correctness
+
+-> Example
+Banking systems like:
+HDFC Bank
+State Bank of India
+
+-> Diagram
+User --> ServerA
+ServerA -->|Wait for sync| ServerB
+ServerA -->|Block request| Client
+
+-> Better to be correct than available
