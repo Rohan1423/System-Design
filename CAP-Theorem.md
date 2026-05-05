@@ -112,3 +112,57 @@ ServerA -->|Wait for sync| ServerB
 ServerA -->|Block request| Client
 
 -> Better to be correct than available
+
+
+-> AP System (Availability + Partition Tolerance)
+
+-> Behavior
+Always responds
+May return stale data
+
+-> Example
+Social media apps like:
+Instagram
+Twitter
+
+-> Diagram
+Client --> ServerA
+Client --> ServerB
+ServerB --> Response["Maybe stale data"]
+
+-> System prefers uptime over correctness
+
+-> Real-World Truth (VERY IMPORTANT)
+Partition tolerance is NOT optional
+So real choice is:
+CP or AP
+
+-> CAP Summary Table
+System Type	    Choice
+Banking	        CP
+Social Media	AP
+E-commerce	    Mostly AP + eventual consistency
+Distributed DB	Depends
+
+-> Real-World Examples
+CP Systems
+Banking transactions
+Payment systems
+Stock trading systems
+
+-> Why?
+Wrong data = disaster
+
+
+-> AP Systems
+Facebook feed
+Netflix recommendations
+
+-> Why?
+Availability > perfect consistency
+
+-> Hybrid Systems
+Amazon
+Uses:
+CP for payments
+AP for product browsing
