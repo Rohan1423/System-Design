@@ -1,5 +1,4 @@
 Consistent hashing is a technique used in distributed systems to minimize data reshuffling when nodes are added or removed. It’s widely used in systems like distributed caches (Redis clusters), CDNs, load balancers, and key-value stores.
-Let’s build it up properly so it actually clicks.
 
 1. The Problem Consistent Hashing Solves
 Imagine you have a cache system with 3 servers:
@@ -23,3 +22,39 @@ Cache becomes useless temporarily
 Massive data migration happens
 System load spikes
 Same issue when a node fails.
+
+2. Core Idea of Consistent Hashing
+
+Instead of using modulo arithmetic, consistent hashing maps both:
+Servers (nodes)
+Keys (data)
+onto a circular hash space (called a hash ring).
+
+Think of a circle:
+Hash values go from 0 → 2³² (or 0 → ∞ conceptually)
+The end wraps back to the start (circle)
+
+3. How It Works (Step by Step)
+
+Step 1: Place servers on the ring
+Each server is hashed:
+hash(S1) → position 100
+hash(S2) → position 400
+hash(S3) → position 800
+
+So they are placed on the ring.
+
+Step 2: Place keys on the same ring
+Each key is also hashed:
+hash(K1) → 120
+hash(K2) → 450
+hash(K3) → 900
+
+Step 3: Assignment rule
+Each key is assigned to:
+The first server clockwise from the key
+
+Example:
+K1 (120) → S2 (400)
+K2 (450) → S3 (800)
+K3 (900) → wraps around → S1 (100)
