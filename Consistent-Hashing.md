@@ -58,3 +58,20 @@ Example:
 K1 (120) → S2 (400)
 K2 (450) → S3 (800)
 K3 (900) → wraps around → S1 (100)
+
+4. Why This is Powerful
+
+-> When a server is added
+Say we add S4 at position 500.
+Only keys between:
+S2 (400) → S4 (500)
+get remapped.
+
+-> Everything else stays unchanged.
+So instead of rehashing everything:
+Only ~1/n of keys move
+
+-> When a server fails
+If S2 dies:
+Only keys assigned to S2 move to next server clockwise
+Rest unaffected
