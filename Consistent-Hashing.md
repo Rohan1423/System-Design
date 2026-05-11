@@ -75,3 +75,22 @@ Only ~1/n of keys move
 If S2 dies:
 Only keys assigned to S2 move to next server clockwise
 Rest unaffected
+
+5. The Real Problem: Uneven Distribution
+
+If servers are randomly placed:
+One server might get too many keys
+Another might get very few
+This is called load imbalance.
+
+6. Solution: Virtual Nodes (VNodes)
+
+Instead of placing each server once:
+We place it multiple times on the ring:
+
+S1 → S1a, S1b, S1c
+S2 → S2a, S2b, S2c
+
+Now:
+Each server appears at multiple points
+Distribution becomes much more uniform
