@@ -94,3 +94,15 @@ S2 → S2a, S2b, S2c
 Now:
 Each server appears at multiple points
 Distribution becomes much more uniform
+
+7. Why It’s Called “Consistent”
+
+Because:
+When nodes change, only a small consistent subset of keys change mapping.
+Not everything.
+
+8. Complexity Insight
+
+Operation	Cost
+Find node for key	O(log N) (with sorted structure)
+Add/remove node	O(K/N moved keys)
