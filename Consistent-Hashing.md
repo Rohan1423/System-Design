@@ -106,3 +106,18 @@ Not everything.
 Operation	Cost
 Find node for key	O(log N) (with sorted structure)
 Add/remove node	O(K/N moved keys)
+
+9. Where It’s Used
+
+Consistent hashing is foundational in:
+Distributed caches
+Memcached
+Redis Cluster
+CDNs
+Cloudflare
+Akamai
+Databases
+DynamoDB-style systems
+Cassandra partitioning
+Load balancers
+Request routing across servers
