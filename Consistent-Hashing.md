@@ -121,3 +121,40 @@ DynamoDB-style systems
 Cassandra partitioning
 Load balancers
 Request routing across servers
+
+10. How Distributed Cache Works
+
+Now connect it to real systems like Redis.
+
+-> Architecture
+Client --> LoadBalancer
+LoadBalancer --> CacheCluster
+CacheCluster --> ServerA
+CacheCluster --> ServerB
+CacheCluster --> ServerC
+
+-> Flow
+Client requests data
+Hash key
+Find correct cache node using consistent hashing
+Fetch/store data
+
+-> Example
+
+GET user:101
+Flow:
+hash(user:101) → Server B
+So:
+Always goes to same server
+
+->  Why This is Powerful
+
+-Without consistent hashing:
+Cache miss storm during scaling
+DB overload
+Poor performance
+
+-With consistent hashing:
+Smooth scaling
+Minimal cache movement
+High availability
