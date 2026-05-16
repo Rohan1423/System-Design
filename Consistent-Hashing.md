@@ -158,3 +158,15 @@ Poor performance
 Smooth scaling
 Minimal cache movement
 High availability
+
+-> Virtual Nodes (Very Important)
+
+To balance load:
+Instead of:
+Server A → 1 position
+
+We do:
+Server A → 10 virtual nodes
+Server B → 10 virtual nodes
+
+-> Better distribution
