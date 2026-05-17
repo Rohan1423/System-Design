@@ -170,3 +170,26 @@ Server A → 10 virtual nodes
 Server B → 10 virtual nodes
 
 -> Better distribution
+
+Virtual Nodes (vnodes) in Consistent Hashing
+
+1. Why Real Nodes Alone Cause Problems
+
+-> Without virtual nodes:
+Hash Ring:
+
+[A]----------------[B]------[C]
+
+Some servers may own huge portions of the ring.
+
+-> Result:
+Uneven load
+Hotspots
+Poor scalability
+
+-> Example:
+A gets 60% traffic
+B gets 10%
+C gets 30%
+
+-> Because hashes are random.
