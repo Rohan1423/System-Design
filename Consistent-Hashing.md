@@ -193,3 +193,18 @@ B gets 10%
 C gets 30%
 
 -> Because hashes are random.
+
+2. What Virtual Nodes Actually Do
+
+-> Instead of placing each physical server once:
+A
+B
+C
+
+-> Place each server multiple times:
+A1 A2 A3 A4
+B1 B2 B3 B4
+C1 C2 C3 C4
+
+-> Each vnode gets its own hash position.
+So traffic becomes statistically balanced.
