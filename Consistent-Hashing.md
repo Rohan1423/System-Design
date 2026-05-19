@@ -208,3 +208,28 @@ C1 C2 C3 C4
 
 -> Each vnode gets its own hash position.
 So traffic becomes statistically balanced.
+
+3. Why Virtual Nodes Fix Load Imbalance
+
+-> Without vnodes:
+Each server = 1 large continuous segment
+Random placement → uneven distribution
+
+-> With vnodes:
+Each server = many small segments scattered across ring
+Distribution becomes statistically uniform
+
+➜ Before vs After
+Without vnodes
+A ----------- B --- C
+
+-> Problem:
+A gets huge chunk
+B gets very little
+With vnodes
+A1 -- B2 -- C3 -- A4 -- B1 -- C2 -- A2 -- B3 -- C1 -- A3
+
+Result:
+Each server appears multiple times
+Load is evenly spread
+No hotspots
