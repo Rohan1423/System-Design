@@ -233,3 +233,30 @@ Result:
 Each server appears multiple times
 Load is evenly spread
 No hotspots
+
+4. How Requests Are Routed
+
+-> Suppose key:
+"user123"
+
+-> Hash:
+hash("user123") = position 450
+We move clockwise on the ring until the first vnode is found.
+
+-> Example:
+... -> B3
+
+-> Then:
+B3 belongs to physical server B
+Request goes to server B
+
+-> Even though routing happens via vnode, storage is handled by the real server.
+
+5. Major Advantages of Virtual Nodes
+
+-> Advantage	                    Explanation
+Better load balancing	        Traffic spreads evenly
+Reduced hotspots	            No giant ownership regions
+Easier scaling	                New servers take small portions from many nodes
+Better fault tolerance	        Load redistribution becomes smoother
+Heterogeneous server support	Powerful servers can have more vnodes
