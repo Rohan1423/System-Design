@@ -260,3 +260,25 @@ Reduced hotspots	            No giant ownership regions
 Easier scaling	                New servers take small portions from many nodes
 Better fault tolerance	        Load redistribution becomes smoother
 Heterogeneous server support	Powerful servers can have more vnodes
+
+6. Weighted Virtual Nodes (Very Important)
+
+-> Not all servers are equally powerful.
+
+-> Example:
+Server	Capacity
+A	32 CPU
+B	8 CPU
+C	8 CPU
+
+We can assign:
+A → 100 vnodes
+B → 25 vnodes
+C → 25 vnodes
+
+-> Result:
+A receives more traffic
+Load distribution matches hardware capacity
+
+-> This is called:
+Weighted Consistent Hashing
