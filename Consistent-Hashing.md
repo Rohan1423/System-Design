@@ -267,9 +267,9 @@ Heterogeneous server support	Powerful servers can have more vnodes
 
 -> Example:
 Server	Capacity
-A	32 CPU
-B	8 CPU
-C	8 CPU
+A	    32 CPU
+B	    8 CPU
+C	    8 CPU
 
 We can assign:
 A → 100 vnodes
@@ -282,3 +282,15 @@ Load distribution matches hardware capacity
 
 -> This is called:
 Weighted Consistent Hashing
+
+7. Real Systems Using Virtual Nodes
+
+-> Virtual nodes are heavily used in distributed systems:
+
+System	                            Usage
+Amazon Web Services DynamoDB	    Uses vnodes extensively
+Apache Cassandra	                Uses tokens/vnodes
+Redis Cluster	                    Uses hash slots
+Akamai Technologies	                CDN distribution
+NGINX	                            Load balancing
+Cloudflare	                        Traffic distribution
