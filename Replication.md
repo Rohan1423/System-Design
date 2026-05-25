@@ -25,3 +25,48 @@ Backup copies exist
 High availability
 Better read scaling
 Disaster recovery
+
+2. Leader-Follower Replication
+
+-> Also called:
+Master-Slave
+Primary-Replica
+
+-> Idea
+One server handles writes.
+Followers copy data from leader.
+
+-> Architecture
+Client --> Leader
+Leader --> Follower1
+Leader --> Follower2
+
+-> Write Flow
+sequenceDiagram
+Client->>Leader: Write Request
+Leader->>Follower1: Replicate
+Leader->>Follower2: Replicate
+Leader-->>Client: Success
+
+-> Read Flow
+
+Reads may go to replicas:
+Client --> Follower1
+Client --> Follower2
+
+-> Advantages
+Simple
+High read scalability
+Good consistency control
+
+-> Problems
+Leader becomes bottleneck
+All writes go to one server.
+Replication Lag
+Follower may not immediately receive latest data.
+
+Example:
+Leader → ₹500
+Follower → still ₹1000
+
+This creates eventual consistency.
