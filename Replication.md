@@ -70,3 +70,32 @@ Leader → ₹500
 Follower → still ₹1000
 
 This creates eventual consistency.
+
+3. Read Replica
+
+-> What is it?
+Follower servers dedicated for reads.
+
+-> Example
+Users --> App
+App --> Leader["Leader (Writes)"]
+App --> Replica1["Read Replica"]
+App --> Replica2["Read Replica"]
+
+-> Why Important?
+
+-> Massive apps have:
+Few writes
+Huge reads
+
+-> Example:
+Instagram feed browsing
+YouTube video metadata
+
+-> Benefits
+Reduces leader load
+Scales reads horizontally
+Improves latency
+
+-> Limitation
+Replica may be stale.
