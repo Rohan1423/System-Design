@@ -99,3 +99,42 @@ Improves latency
 
 -> Limitation
 Replica may be stale.
+
+4. Multi-Leader Replication
+
+-> Now instead of one leader:
+Multiple leaders accept writes.
+
+-> Architecture
+Client1 --> LeaderA
+Client2 --> LeaderB
+LeaderA --> LeaderB
+LeaderB --> LeaderA
+
+-> Why Use It?
+Useful for:
+Multi-region systems
+Global applications
+
+-> Example:
+India users → India leader
+US users → US leader
+Low latency globally.
+
+-> Advantages
+Faster regional writes
+No single write bottleneck
+Better availability
+
+-> Biggest Problem: Conflict Resolution
+
+-> Example:
+Leader A → Name = "Rohan"
+Leader B → Name = "Rahul"
+Now which is correct?
+This is hard.
+
+-> Conflict Resolution Strategies
+Last write wins
+Version vectors
+CRDTs (advanced)
