@@ -138,3 +138,28 @@ This is hard.
 Last write wins
 Version vectors
 CRDTs (advanced)
+
+5. Eventual Consistency
+
+Very important concept.
+
+-> Meaning
+Data becomes consistent eventually, not immediately.
+
+-> Example
+Leader --> Replica1
+Leader --> Replica2
+Replica2 --> OldData["Old Data Temporarily"]
+
+-> For small time:
+Different nodes may show different data
+Eventually:
+All sync
+
+-> Real Example
+You upload photo to:
+Instagram
+Friend in another country may not see it instantly.
+-> After few seconds:
+synced everywhere
+That’s eventual consistency.
