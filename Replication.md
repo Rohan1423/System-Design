@@ -160,6 +160,13 @@ All sync
 You upload photo to:
 Instagram
 Friend in another country may not see it instantly.
--> After few seconds:
+After few seconds:
 synced everywhere
 That’s eventual consistency.
+
+-> Strong vs Eventual Consistency
+Strong Consistency	    Eventual Consistency
+Always latest data	    May be stale briefly
+Slower	                Faster
+Harder to scale     	Easier to scale
+Banking systems	        Social media
