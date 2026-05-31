@@ -170,3 +170,10 @@ Always latest data	    May be stale briefly
 Slower	                Faster
 Harder to scale     	Easier to scale
 Banking systems	        Social media
+
+-> Real-World Usage
+System	            Model
+Banking	            Strong consistency
+Social media	    Eventual consistency
+Chat typing status	Eventual consistency
+Payment systems	    Strong consistency
