@@ -14,7 +14,7 @@ Sharding
 
 -> Imagine you have a database with 1 billion users.
 
-Initially:
+-> Initially:
 Database Server
 Users Table
 1 billion rows
@@ -38,7 +38,7 @@ Instead of:
 │ All Users   │
 └─────────────┘
 
-You do:
+-> You do:
 
 Server A      Server B      Server C
 ┌───────┐     ┌───────┐     ┌───────┐
@@ -48,3 +48,36 @@ Server A      Server B      Server C
 
 Each server stores only a portion of the data.
 These portions are called shards.
+
+
+-> Why Do We Need Sharding?
+
+-> Suppose:
+Users Table = 2 TB
+But one database server can comfortably handle:
+500 GB
+Not enough.
+
+-> Instead:
+Shard 1 = 500 GB
+Shard 2 = 500 GB
+Shard 3 = 500 GB
+Shard 4 = 500 GB
+Now storage is distributed.
+
+-> Real World Example
+
+Think of a library.
+
+-> Without sharding:
+One huge room
+10 million books
+Finding books becomes difficult.
+
+-> With sharding:
+Room A -> A-F
+Room B -> G-M
+Room C -> N-S
+Room D -> T-Z
+Each room stores only part of the books.
+Searching becomes easier.
