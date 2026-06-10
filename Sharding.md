@@ -186,3 +186,86 @@ Shard 3 -> 75%
 One server becomes overloaded.
 Others sit idle.
 Bad utilization.
+
+
+-> Method 2: Hash-Based Sharding
+
+-> Instead of ranges:
+hash(UserID)
+decides the shard.
+
+-> Example:
+Shard = UserID % 3
+Example
+UserID:
+1 % 3 = 1
+→ Shard 1
+
+2 % 3 = 2
+→ Shard 2
+
+3 % 3 = 0
+→ Shard 3
+
+4 % 3 = 1
+→ Shard 1
+
+Result:
+Shard 1:
+1 4 7 10
+
+Shard 2:
+2 5 8 11
+
+Shard 3:
+3 6 9 12
+Much more balanced.
+
+
+-> Visualization
+
+Users
+1 -> S1
+2 -> S2
+3 -> S3
+4 -> S1
+5 -> S2
+6 -> S3
+Load spreads evenly.
+
+
+-> Advantage of Hash Sharding
+
+-> Traffic becomes:
+Shard 1 -> 33%
+Shard 2 -> 33%
+Shard 3 -> 34%
+Balanced.
+No hotspot.
+
+-> Problem with Hash Sharding
+
+-> Suppose:
+3 shards
+
+-> Formula:
+UserID % 3
+Now add:
+Shard 4
+
+-> Formula changes:
+UserID % 4
+Every mapping changes.
+
+-> Example:
+5 % 3 = 2
+Old:
+Shard 2
+New:
+5 % 4 = 1
+
+-> Now:
+Shard 1
+Almost all data must move.
+Huge problem.
+This is why systems often use Consistent Hashing.
