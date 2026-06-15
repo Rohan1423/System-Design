@@ -269,3 +269,54 @@ Shard 1
 Almost all data must move.
 Huge problem.
 This is why systems often use Consistent Hashing.
+
+
+-> Method 3: Directory-Based Sharding
+
+Maintain a lookup table.
+UserID → Shard
+
+-> Example:
+User 1 -> Shard 2
+User 2 -> Shard 1
+User 3 -> Shard 4
+Stored separately.
+
+-> Visualization
+
+Routing Table
+1 -> S2
+2 -> S1
+3 -> S4
+4 -> S3
+Database checks the table first.
+Then goes to the correct shard.
+
+-> Pros
+Flexible.
+Can move users between shards.
+
+-> Cons
+Need extra lookup.
+Routing table becomes critical.
+
+-> If it fails:
+Nobody knows where data lives.
+
+
+-> Query Flow in Sharding
+
+-> Suppose:
+Get User 1500
+
+-> Application:
+Determine shard
+
+-> Then:
+Read shard
+
+-> Example:
+1500
+belongs to: Shard 2
+Only Shard 2 is queried.
+Very efficient.
