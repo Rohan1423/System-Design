@@ -320,3 +320,11 @@ Read shard
 belongs to: Shard 2
 Only Shard 2 is queried.
 Very efficient.
+
+
+-> What Happens During Writes?
+
+Insert User 4500
+Router computes: hash(4500)
+Determines: Shard 3
+Stores data there.
